@@ -184,7 +184,11 @@ javascript_eval(){
 	cat $TMP_FILE $TMP_FILE.new |\
 		sed -e '/^$/d' |\
 		sed '$! b
-			/^[ \t]*\([})]\|\]\|var\|let\|const\)/ b
+			/^[ \t]*[]});]/ b
+			/^[ \t]*\(var\|let\|const\)[ \t]\+[[:alnum:]_$]\+[ \t]*[^,]/ {
+			   s/^[ \t]*\([^ \t]*\)[ \t]*\([[:alnum:]_$]*\)[ \t]*\(.*\)/\1 \2\3;console.log(\2);/
+			   b
+			}
 			s/\(.*\);/console.log(\1);/' > $TMP_FILE.eval
 	node $TMP_FILE.eval 2> $TMP_FILE.error | sed -e 's/^\(.*\)$/\/\/ \1/'
 }
