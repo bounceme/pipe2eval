@@ -185,8 +185,8 @@ javascript_eval(){
 		sed -e '/^$/d' |\
 		sed '$! b
 			/^[ \t]*[]});]/ b
-			/^[ \t]*\(var\|let\|const\)[ \t]\+[[:alnum:]_$]\+[ \t]*[^,]/ {
-			   s/^[ \t]*\([^ \t]*\)[ \t]*\([[:alnum:]_$]*\)[ \t]*\(.*\)/\1 \2\3;console.log(\2);/
+			/^[ \t]*\(var\|let\|const\)[ \t]\+[[:alnum:]_$]/ {
+			   s/^[ \t]*\([^ \t]*\)[ \t]*\([[:alnum:]_$ \t,]*\)\(.*[^,]$\)/\1 \2\3;console.log(\2);/
 			   b
 			}
 			s/\(.*\);/console.log(\1);/' > $TMP_FILE.eval
