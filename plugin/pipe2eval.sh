@@ -186,7 +186,7 @@ javascript_eval(){
 		sed '$! b
 			/^[ \t]*[]});]/ b
 			/^[ \t]*\(var\|let\|const\)[ \t]\+[[:alnum:]_$]/ {
-			   /,$/ b
+			   /[^;][ \t]*$/ b
 			   s/^[ \t]*\([^ \t]*\)\([[:alnum:]_$ \t,]*\)\(.*\)/\1\2\3;console.log(\2);/
 			   b
 			}
